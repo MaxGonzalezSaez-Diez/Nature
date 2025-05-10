@@ -1,0 +1,76 @@
+# different names needed
+names:
+  project: "pp"
+  raw_run_name: "test_{config_name}_{time}_w02"
+  dir: './ckpt' # should be default
+
+plotting:
+  tail_length: 2
+
+# world parameters
+world:
+  grid_size: 40
+   # fraction of tiles covered with animals at the beginning
+  init_amount_animals: 0.1
+  # keep as -1, gets updated to number of species dynamically
+  obs_channels: -1 
+  # 10 in either direction. Upper bound.
+  max_obs: 21 
+  percentage_water: 8
+  max_frac_covered_plants: 0.05
+  prob_random_plant_on_grid: 0.01
+  prob_plant_creates_plant: 0.01
+
+# animal tropic level
+trophic_levels:
+  levels: 2
+  levels_down_eat: 2
+  max_animals_per_species: 10000
+  # apex predator is the one furthest to the right
+  species_per_level: [1, 1]
+  # This is fraction of all. This is archieved probabilitically not determinitically
+  init_dist: [0.6, 0.4] 
+  # 5x plants to lowest level
+  frac_plants_to_animals: 1
+  baseline_energy_consumption: 0.025
+  hunger_per_step: 0.005
+  thirst_per_step: 0.005
+  reward_death: -10
+  reproduction_reward: 1
+  energy_threshold_reproduction: 0.6
+  energy_cost_reproduction: 0.4
+  sleep_cycles_range: [1, 10]
+
+
+# train settings
+train:
+  # per episode
+  max_steps: 2000 
+  training_iterations: 1000
+  train_batch_size: 128
+  sgd_minibatch_size: 16
+  num_sgd_iter: 1
+  gamma: 0.99
+  lr: 0.0003
+  ckpt_to_keep: 1
+  checkpoint_frequency: 20
+  # eval_freq: 10000
+  inherit_params: false
+  evolution_std: 0.001
+
+eval:
+  max_steps: 10000 
+  inherit_params: false
+  evolution_std: 0.001
+
+# plot every how many training iterations
+plotting:
+  html_dynamics: 10 
+
+# system settings
+ss: 
+  num_gpus: 0
+  num_cpus_per_worker: 1
+  nr_env_runners: 1
+  nr_envs_per_env_runner: 1
+  nr_cpus_for_main_process: 1
